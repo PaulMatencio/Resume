@@ -1,3 +1,5 @@
+// definition of bio variable
+
 var bio = {
     "name": "Patrick Vauban",
     "role": "Web developer",
@@ -13,6 +15,7 @@ var bio = {
     "biopic": "images/fry.jpg"
 };
 
+// definition of the education variable
 var education = {
     "schools": [{
         "name": "Street University",
@@ -69,6 +72,8 @@ var education = {
     }]
 }
 
+// Definition of the work varaible
+// Work variable is a "jobs" table which contains  job entries [ {job1},{job2},{job3} ]
 var work = {
     "jobs": [{
         "employer": "Lam dong tea joint stock company",
@@ -94,6 +99,9 @@ var work = {
     }]
 };
 
+
+// defibition of the "project" variable
+// project variable  is a "project" table containing  project entries  [ {project1},{project2},{project 3} ]
 var project = {
     "projects": [
 
@@ -122,6 +130,7 @@ var project = {
     ]
 }
 
+// don't need if you don't wnat to use map
 var mapmaker = {
     "La Haye": {
         "icon": "images/homeMarker-t.png",
@@ -161,20 +170,48 @@ var mapmaker = {
     }
 }
 
+// Build the navigation list
 var navigation = {
-    "title": ["Work Experience", "Projects", "Education", "Map"],
-    "anchor": ["workExperience", "projects", "education", "mapDiv"]
+    "title": ["Work Experience", "Projects", "Education", "Map"], // title=  for each menu
+    "anchor": ["workExperience", "projects", "education", "mapDiv"], // anchor=  for each menu
+    "id": ["workId","projId","educId","mId"] // id= for ecah menu
 }
-var HTMLnavlist = '<li class="nav__item"><a href="#"">%data%</a></li>';
+
+var HTMLnavlist = '<li class="nav__item" id="%navid%"><span>%data%</span></li>';
 
 function displayNavigation() {
     for (nav in navigation.title) {
-        var nav_list = HTMLnavlist.replace("%data%", navigation.title[nav]);
-        $('.nav__list').append(nav_list.replace("#", "#" + navigation.anchor[nav]));
+        /* replace the %data% by title[nav] and %id% by nav index */
+        var nav_list = HTMLnavlist.replace("%data%", navigation.title[nav]).replace("%navid%",navigation.id[nav]) ;
+        $('.nav__list').append(nav_list);
+        // $('.nav__list').append(nav_list.replace("#", "#" + navigation.anchor[nav]));
     }
+    var $workId = $('#workId')
+        $projId = $('#projId')
+        $educId = $('#educId');
+
+    $workId.click(function(){
+       console.log("click");
+       $workExperienceId.show();
+       $projectsId.hide();
+       $educationId.hide();
+    });
+
+    $projId.click(function(){
+       $workExperienceId.hide();
+       $projectsId.show();
+       $educationId.hide() ;
+    });
+
+     $educId.click(function(){
+       $workExperienceId.hide();
+       $projectsId.hide();
+       $educationId.show() ;
+     });
 }
 
-/* useful functions */
+/* display Google Map */
+/* append the GoogleMap */
 function displayMap() {
     $("#mapDiv").append(googleMap);
 }
@@ -187,11 +224,8 @@ function inName(myname) {
     return name1[1] + " " + name1[0];
 }
 
-/*
-function displayWelcome() {
-    $("#header").prepend(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
-}
-*/
+
+/* Build the Bio elements */
 
 bio.myWelcome = function() {
     $("#skillsH3").prepend(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
@@ -204,6 +238,7 @@ bio.mySkills = function() {
     }
 }
 
+/* Display the bio elements */
 bio.display = function() {
     $("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
     $("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
@@ -230,7 +265,8 @@ function displayInternationalizeButton() {
     $("#main").prepend(internationalizeButton);
 }
 
-/*  Work section of the  Resume */
+/* Build the  Work section of the  Resume */
+/* putOnResume function for the class work */
 work.putOnResume = function(index) {
     $("#workExperience").append(HTMLworkStart);
     var employeur = HTMLworkEmployer.replace("%data%", work.jobs[index].employer);
@@ -241,7 +277,7 @@ work.putOnResume = function(index) {
     $(".work-entry:last").append(HTMLworkLocation.replace("%data%", work.jobs[index].location));
     $(".work-entry:last").append(HTMLworkDescription.replace("%data%", work.jobs[index].description));
 }
-
+/* display function for the class work */
 work.display = function display() {
     for (var job in work.jobs.reverse()) {
         work.putOnResume(job);
@@ -258,6 +294,14 @@ work.locationizer = function() {
     return locationArray;
 }
 
+
+var HTMLRow = '<div class="row">'; // add a flexbox row
+var HTMLCol = '<div class="%data%">';
+var HTMLEndDiv = "</div>"
+
+
+/* Build the Project section of the Resume */
+/* Every project has an image entity  : look at the project class */
 project.getImage = function(name) {
     for (proj in project.projects) {
         if (project.projects[proj].location.search(name) >= 0) {
@@ -266,11 +310,6 @@ project.getImage = function(name) {
     }
     return null;
 }
-
-/* Project section of the Resume */
-var HTMLRow = '<div class="row">';
-var HTMLCol = '<div class="%data%">';
-var HTMLEndDiv = "</div>"
 
 project.putOnResume = function(index) {
     $("#projects").append(HTMLprojectStart);
@@ -291,11 +330,10 @@ project.putOnResume = function(index) {
 
 project.display = function() {
         for (var proj in project.projects.reverse()) {
-            /* putProjectOnResume(proj); */
             project.putOnResume(proj);
         }
     }
-    /* Education section of the Resume */
+/* Education section of the Resume */
 
 education.putOnresume = function(index) {
     $("#education").append(HTMLschoolStart);
@@ -325,6 +363,15 @@ education.display = function() {
     }
 }
 
+/* this function is used to swap class  for  the follwing div id=
+
+     workExperience
+     projects
+     education
+
+     jQuery removeClass and addClass are used
+
+*/
 function swapClass(oldc, newc) {
 
     $('#workExperience').removeClass(oldc);
@@ -334,24 +381,35 @@ function swapClass(oldc, newc) {
     $('#education').removeClass(oldc);
     $('#education').addClass(newc);
 }
-/*  DISPLAY the RESUME */
 
-bio.display();
-work.display();
-project.display();
-education.display();
-displayMap();
-displayNavigation();
-//displayInternationalizeButton();
 
-//  Change Header backgroud color
-var skill_ul = $('#skills');
-var header = $('#header');
+
+/*  STRAT TO DISPLAY the RESUME */
+
+bio.display(); // display the bio section
+work.display(); // display the work section
+project.display(); // display the project section
+education.display(); // display the education section */
+displayMap();  // Display teh map section
+displayNavigation(); // display the navigation section
+
+
+var $workExperienceId, $projectsId, $educationId ;
+var $skill_ul , $header ;
 
 $(document).ready(function() {
-    header.css("background-color", "rgb(116,130,101)");
+
+    $workExperienceId = $('#workExperience');
+    $educationId    = $('#education');
+    $projectsId     = $('#projects')
+    $skill_ul       = $('#skills');
+    $header         = $('#header');
+
+
+    //  Change Header backgroud color when the document is READY
+    $header.css("background-color", "rgb(116,130,101)");
     if ($(window).width() >= 600) {
-        skill_ul.addClass("flex-box-col");
+        $skill_ul.addClass("flex-box-col");
     }
     if ($(window).width() >= 1200) {
         swapClass("col-12", "colg-4");
@@ -360,23 +418,29 @@ $(document).ready(function() {
     }
 });
 
-// change display orientation when window size > 600 px  ( row -> column) and remove open class just in case
+
+// change display orientation when window size > 600 px  ( row -> column) and remove the open class just in case
 $(window).resize(function() {
+
     var nav_li = $(".nav__list").children('li');
+
     if ($(window).width() >= 600) {
-        skill_ul.addClass("flex-box-col");
+        $skill_ul.addClass("flex-box-col");
         $(".nav").removeClass("open");
         $(".nav__item").removeClass("open");
 
     } else {
-        skill_ul.removeClass("flex-box-col");
+        $skill_ul.removeClass("flex-box-col");
     }
+
     if ($(window).width() >= 1200) {
         swapClass("col-12", "colg-4");
     } else {
         swapClass("colg-4", "col-12");
     }
+
 });
+
 
 $("#menu").click(function() {
     $(".nav").toggleClass("open");

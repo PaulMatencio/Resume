@@ -28,20 +28,23 @@ var HTMLwelcomeMsg = '<span class="welcome-message">%data%</span>';
 var HTMLskillsStart = '<h3 id="skillsH3">My strength :</h3><ul id="skills" class="flex-box"></ul>';
 var HTMLskills = '<li class="flex-item"><span class="white-text">%data%</span></li>';
 
+/* Work HTML element */
 var HTMLworkStart = '<div class="work-entry"></div>';
 var HTMLworkEmployer = '<a href="#">%data%';
-
 var HTMLworkTitle = ' - %data%</a>';
 var HTMLworkDates = '<div class="date-text">%data%</div>';
 var HTMLworkLocation = '<div class="location-text">%data%</div>';
 var HTMLworkDescription = '<p><br>%data%</p>';
 
+/* Project HTML elements */
 var HTMLprojectStart = '<div class="project-entry"></div>';
 var HTMLprojectTitle = '<a href="#">%data%</a>';
 var HTMLprojectDates = '<div class="date-text">%data%</div>';
 var HTMLprojectDescription = '<p><br>%data%</p>';
 var HTMLprojectImage = '<img src="%data%">';
 
+
+/* School HTML elements */
 var HTMLschoolStart = '<div class="education-entry"></div>';
 var HTMLschoolName = '<a href="#">%data%';
 var HTMLschoolDegree = ' -- %data%</a>';
@@ -49,6 +52,7 @@ var HTMLschoolDates = '<div class="date-text">%data%</div>';
 var HTMLschoolLocation = '<div class="location-text">%data%</div>';
 var HTMLschoolMajor = '<em><br>Major: %data%</em>';
 
+/* Online Class HTML Elemnts */
 var HTMLonlineClasses = '<h3>Online Classes</h3>';
 var HTMLonlineTitle = '<a href="#">%data%';
 var HTMLonlineSchool = ' - %data%</a>';
@@ -60,14 +64,18 @@ var internationalizeButton = '<button class="button">Internationalize</button>';
 var googleMap = '<div id="map"></div>';
 
 /*
-The International Name challenge in Lesson 2 where you'll create a function that will need this helper code to run. Don't delete! It hooks up your code to the button you'll be appending.
+    The International Name challenge in Lesson 2 where you'll create a function that will need this helper code to run.
+    Don't delete! It hooks up your code to the button you'll be appending.
 */
+
 $(document).ready(function() {
     $('button').click(function() {
         var iName = inName(bio.name) || function() {};
         $('#name').html(iName);
+
         /* d3.selectAll("h1").style("color", "white"); */
         d3.selectAll(".work-entry").style("font-family", "");
+
 
     });
 });
@@ -85,6 +93,7 @@ function logClicks(x, y) {
     console.log('x location: ' + x + '; y location: ' + y);
 }
 
+
 $(document).click(function(loc) {
     // your code goes here!
     var x = loc.pageX;
@@ -93,9 +102,10 @@ $(document).click(function(loc) {
 });
 
 /*
-This is the fun part. Here's where we generate the custom Google Map for the website.
-See the documentation below for more details.
-https://developers.google.com/maps/documentation/javascript/reference
+    This is the fun part.
+    Here's where we generate the custom Google Map for the website.
+    See the documentation below for more details.
+    https://developers.google.com/maps/documentation/javascript/reference
 */
 var map; // declares a global map variable
 
