@@ -4,82 +4,89 @@
  *
  */
 
-.nav{
-  width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  position: absolute;
-  -webkit-transform: translate(-1000px, 0);
-  transform: translate(-1000px, 0);
-  transition: transform 0.3s ease;
-  background-color: #F5A623;
-  }
-
-  /*
+.nav {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    -webkit-transform: translate(-1000px, 0);
+    -moz-transform: translate(-1000px, 0);
+    -ms-transform: translate(-1000px, 0);
+    transform: translate(-1000px, 0);
+    -webkit-transition: transform 0.3s ease;
+    -moz-transition: transform 0.3s ease;
+    -ms-transition: transform 0.3s ease;
+    transition: transform 0.3s ease;
+    background-color: #F5A623;
+}
+/*
          when the menu is clicked, its toggles the open method of the nav
-         the translate(0,0) show the nav 
+         the translate(0,0) show the nav
   */
 
 .nav.open {
-        position:absolute;
-        -webkit-transform: translate(0, 0);
-        transform: translate(0, 0);
-        top: 1em;
-        width: 6em;
-        left: 0.5em;
-        z-index:10;
-  }
+    position: absolute;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+    top: 1em;
+    width: 6em;
+    left: 0.1em;
+    border-radius: 5%;
+    z-index: 10;
+}
 
 .nav__list {
-  width: 100%;
-  padding: 10px 0 0 0;
-  margin: 0;
+    width: 100%;
+    padding: 10px 0 0 0;
+    margin: 0;
 }
 
 .nav__list.open {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .nav__item {
-  box-sizing: border-box;
-  display: inline-block;
-  width: 24%;
-  text-align: center;
-  line-height: 20px;
-  /*padding: 24px; */
-  /*text-transform: uppercase; */
-
+    box-sizing: border-box;
+    display: inline-block;
+    width: 19%;
+    text-align: left;
+    line-height: 24px;
 }
 
-.nav__item.open{
-  /*padding:10px; */
-  line-height: 20px;
-  width: 100%;
-  display:block;
-  border: 0.5px;
-  font-weight: 300;
-  margin-bottom: 5px;
-  z-index:10;
+.nav__item.open {
+    line-height: 20px;
+    width: 100%;
+    display: block;
+    border: 0.1em;
+    border-radius: 10%;
+    font-weight: 300;
+    margin-bottom: 5px;
+    padding: 5px;
+    z-index: 10;
 }
 
-.nav a {
-  text-decoration: none;
-  color: #616161;
-  padding: 0;
+.nav__item span {
+    text-decoration: none;
+    color: #616161;
+    padding: 0;
 }
 
-.nav a:hover {
-  text-decoration: underline;
-  background-color: #78909C;
-  color: #212121;
-}
+.nav li:hover {
+    /* text-decoration: none; */
 
+    background-color: #78909C;
+    color: #212121;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+}
 
 #menu {
-  float:left;
-  position: absolute;
-  margin: 0;
+    float: left;
+    position: absolute;
+    margin: 0;
 }
 
 a#menu svg {
@@ -87,35 +94,43 @@ a#menu svg {
     fill: #000;
 }
 
-
-@media screen and (min-width:  600px) {
-
-  #menu {
-    display:none;
-  } 
-
-  .nav {
-        position:relative;
+@media screen and (min-width: 600px) {
+    #menu {
+        display: none;
+    }
+    .nav {
+        position: relative;
         width: 100%;
         -webkit-transform: translate(0, 0);
+        -moz-transform: translate(0, 0);
+        -ms-transform: translate(0, 0);
+        -o-transform: translate(0, 0);
         transform: translate(0, 0);
+        -webkit-transition: 0.3s ease-in-out;
+        -moz-transition: 0.3s ease-in-out;
+        -ms-transition: 0.3s ease-in-out;
+        -transition: 0.3s ease-in-out;
         /* background-color: #F5A623 ; */
-
     }
 
-  .nav__list {
-    width: 100%;
-    padding: 0;
-    margin: 0;
+    .nav__list {
+        width: 100%;
+        padding: 5px;
+        margin: 0;
+    }
 
-  }
-  .nav__item {
-    text-align: left;
-  }
+    .nav__item {
+        text-align: center;
+    }
 
-  .nav a {
-  padding: 5px;
+    /*
+    .nav__list span {
+        padding: 5px;
+    }
+    */
+
+    .nav li {
+        border-radius: 15%;
+        padding: 5px;
+    }
 }
- 
-}
-

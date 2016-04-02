@@ -1,21 +1,22 @@
-// definition of bio variable
 
+// definition of bio variable which is used to build the bio section's HTML elements
 var bio = {
-    "name": "Patrick Vauban",
-    "role": "Web developer",
+    "name": "Alexandre Matencio",
+    "role": "Student at ECV",
     "contacts": {
-        "email": "p.vauban@gmail.com",
-        "mobile": "+3161894564",
-        "twitter": "@patrickv",
-        "github": "Patrick V",
+        "email": "alexandreMatencio@gmail.com",
+        "mobile": "+33xxxxxxxxx",
+        "twitter": "@AiMatencio",
+        "github": "Alexandre Matencio V",
         "location": "The Hague, The Netherlands"
     },
     "skills": ["Focus on result", "Taking responsability", "Creativity", "Sens of humor"],
-    "welcomeMessage": "Welcome: Xinh chao cac bạn",
+    "welcomeMessage": "Welcome: Bonjour",
     "biopic": "images/fry.jpg"
 };
 
-// definition of the education variable
+// definition of the education variable which is used to build the edudation 's section  HTML elemnts
+// education is a table "schools []. The contable schools contains school-entry {}.
 var education = {
     "schools": [{
         "name": "Street University",
@@ -24,7 +25,8 @@ var education = {
         "degree": "Preparing tea",
         "dates": "1900-1960",
         "minor": [
-            "Vietnamese"
+            "Dutch",
+            "English"
         ],
         "major": [
             "The Art of preparing tea"
@@ -38,7 +40,7 @@ var education = {
         "minor": [
             "French",
             "English",
-            "Lao"
+            "Dutch"
         ],
         "major": [
             "The Art of cooking rice"
@@ -70,10 +72,11 @@ var education = {
             "Nanodegree"
         ]
     }]
-}
+};
 
-// Definition of the work varaible
+// Definition of the work varaible which is used to build the  work experience section ( HTML elements)
 // Work variable is a "jobs" table which contains  job entries [ {job1},{job2},{job3} ]
+// The location : {} is used to display the location on the google map.
 var work = {
     "jobs": [{
         "employer": "Lam dong tea joint stock company",
@@ -102,6 +105,7 @@ var work = {
 
 // defibition of the "project" variable
 // project variable  is a "project" table containing  project entries  [ {project1},{project2},{project 3} ]
+// The location : {} is used to display the location on the google map.
 var project = {
     "projects": [
 
@@ -128,7 +132,7 @@ var project = {
             "images": ["images/IMG_20151004_114935-320.jpg", "images/IMG_20151004_114801-320.jpg", "images/IMG_20151004_114816-320.jpg", "images/IMG_20151004_115045-320.jpg", "images/IMG_20151004_115123-320.jpg"]
         }
     ]
-}
+};
 
 // don't need if you don't wnat to use map
 var mapmaker = {
@@ -168,47 +172,83 @@ var mapmaker = {
         "icon": "images/brownMarker-t.png",
         "image": "images/Parkse.jpg"
     }
-}
+};
 
-// Build the navigation list
+// BUILD THE NAVIGATION LIST
 var navigation = {
-    "title": ["Work Experience", "Projects", "Education", "Map"], // title=  for each menu
-    "anchor": ["workExperience", "projects", "education", "mapDiv"], // anchor=  for each menu
-    "id": ["workId","projId","educId","mId"] // id= for ecah menu
-}
+    "title": ["Work Experience", "Projects", "Education", "Map", "All"], // title=  for each menu
+    "id": ["workId", "projId", "educId", "mapId", "allId"] // id= for ecah menu
+};
+
+var All = true; // used to swap class if all the section  are displayed
 
 var HTMLnavlist = '<li class="nav__item" id="%navid%"><span>%data%</span></li>';
 
 function displayNavigation() {
-    for (nav in navigation.title) {
+    for (var nav in navigation.title) {
         /* replace the %data% by title[nav] and %id% by nav index */
-        var nav_list = HTMLnavlist.replace("%data%", navigation.title[nav]).replace("%navid%",navigation.id[nav]) ;
+        var nav_list = HTMLnavlist.replace("%data%", navigation.title[nav]).replace("%navid%", navigation.id[nav]);
         $('.nav__list').append(nav_list);
         // $('.nav__list').append(nav_list.replace("#", "#" + navigation.anchor[nav]));
     }
-    var $workId = $('#workId')
-        $projId = $('#projId')
-        $educId = $('#educId');
+    // location the li DOM  ( navigation.id )
+    var $workId = $('#workId'),
+        $projId = $('#projId'),
+        $educId = $('#educId'),
+        $mapId = $('#mapId'),
+        $allId = $('#allId');
 
-    $workId.click(function(){
-       console.log("click");
-       $workExperienceId.show();
-       $projectsId.hide();
-       $educationId.hide();
+    // Listen on Click event of the menu list entries
+    // work experience  is clicked
+    $workId.click(function() {
+        $workExperienceId.show();
+        $projectsId.hide();
+        $educationId.hide();
+        $mapDivId.hide();
+        All = false; // used to swap class when resizing
+        resize();
+    });
+    // project is clicked
+    $projId.click(function() {
+        $workExperienceId.hide();
+        $projectsId.show();
+        $educationId.hide();
+        $mapDivId.hide();
+        All = false; // used to swap class when resizing
+        resize();
+    });
+    // education   is clicked
+    $educId.click(function() {
+        $workExperienceId.hide();
+        $projectsId.hide();
+        $educationId.show();
+        $mapDivId.hide();
+        All = false; // used to swap class when resizing
+        resize();
     });
 
-    $projId.click(function(){
-       $workExperienceId.hide();
-       $projectsId.show();
-       $educationId.hide() ;
-    });
+    // map is clicked
+    $mapId.click(function() {
+        $workExperienceId.hide();
+        $projectsId.hide();
+        $educationId.hide();
+        $mapDivId.show();
+        All = false; // used to swap class when resizing
+        resize();
 
-     $educId.click(function(){
-       $workExperienceId.hide();
-       $projectsId.hide();
-       $educationId.show() ;
-     });
+    });
+    // all is clicked
+    $allId.click(function() {
+        $workExperienceId.show();
+        $projectsId.show();
+        $educationId.show();
+        $mapDivId.show();
+        All = true; // used to swap class when resizing
+        resize();
+    });
 }
+
+// END BUILDING THE NAVIGATION LIST
 
 /* display Google Map */
 /* append the GoogleMap */
@@ -229,14 +269,14 @@ function inName(myname) {
 
 bio.myWelcome = function() {
     $("#skillsH3").prepend(HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage));
-}
+};
 
 bio.mySkills = function() {
     $("#header").append(HTMLskillsStart);
     for (var skill in bio.skills) {
         $("#skills").append(HTMLskills.replace("%data%", bio.skills[skill]));
     }
-}
+};
 
 /* Display the bio elements */
 bio.display = function() {
@@ -258,7 +298,7 @@ bio.display = function() {
     $("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
     bio.mySkills();
     bio.myWelcome();
-}
+};
 
 
 function displayInternationalizeButton() {
@@ -272,68 +312,80 @@ work.putOnResume = function(index) {
     var employeur = HTMLworkEmployer.replace("%data%", work.jobs[index].employer);
     employeur = employeur.replace("#", work.jobs[index].url);
     title = HTMLworkTitle.replace("%data%", work.jobs[index].title);
+    // locate the last entry of the element with the class "work-entry"   and append the the employer and title element
     $(".work-entry:last").append(employeur + title);
+    // locate the last entry of the element with the class "work-entry"   and append the the employer and date  element
     $(".work-entry:last").append(HTMLworkDates.replace("%data%", work.jobs[index].dates));
+    // locate the last entry of the element with the class "work-entry"   and append the the employer and date  element
     $(".work-entry:last").append(HTMLworkLocation.replace("%data%", work.jobs[index].location));
+    // locate the last entry of the element with the class "work-entry"   and append the the employer and  job description   element
     $(".work-entry:last").append(HTMLworkDescription.replace("%data%", work.jobs[index].description));
-}
+};
+
 /* display function for the class work */
 work.display = function display() {
     for (var job in work.jobs.reverse()) {
         work.putOnResume(job);
     }
-}
+};
+
 
 work.locationizer = function() {
     /*function locationizer(work) { */
-    var locationArray = []
+    var locationArray = [];
     for (var job in work.jobs.reverse()) {
         var location = work.jobs[job].location;
         locationArray.push(location);
     }
     return locationArray;
-}
+};
 
 
 var HTMLRow = '<div class="row">'; // add a flexbox row
 var HTMLCol = '<div class="%data%">';
-var HTMLEndDiv = "</div>"
+var HTMLEndDiv = "</div>";
 
 
-/* Build the Project section of the Resume */
-/* Every project has an image entity  : look at the project class */
+/* Create the Education HTML elements for the education section section of the Resume */
+/* Every project has one or more  image url: look at the project class */
+
 project.getImage = function(name) {
-    for (proj in project.projects) {
+    for (var proj in project.projects) {
         if (project.projects[proj].location.search(name) >= 0) {
             return project.projects[proj].images[0];
         }
     }
     return null;
-}
+};
 
 project.putOnResume = function(index) {
-    $("#projects").append(HTMLprojectStart);
+
+    $("#projects").append(HTMLprojectStart); //  add the projrct Start element defined in helper.js
     var title = HTMLprojectTitle.replace("%data%", project.projects[index].title);
+    // locate the last entry of the element with the class "project-entry"   and append the the project title element
     $(".project-entry:last").append(title.replace("#", project.projects[index].url));
+    // locate the last entry of the element with the class "project-entry"   and append the the project date element
     $(".project-entry:last").append(HTMLprojectDates.replace("%data%", project.projects[index].dates));
+    // locate the last entry of the element with the class "project-entry"   and append the the project description element
     $(".project-entry:last").append(HTMLprojectDescription.replace("%data%", project.projects[index].description));
+
     if (project.projects[index].images.length > 0) {
         images = HTMLRow;
-        for (img in project.projects[index].images) {
+        for (var img in project.projects[index].images) {
             images = images + HTMLCol.replace("%data%", "col-2") +
                 HTMLprojectImage.replace("%data%", project.projects[index].images[img]) + HTMLEndDiv;
         }
         images = images + HTMLEndDiv + HTMLEndDiv;
         $(".project-entry:last").append(images);
     }
-}
+};
 
 project.display = function() {
-        for (var proj in project.projects.reverse()) {
-            project.putOnResume(proj);
-        }
+    for (var proj in project.projects.reverse()) {
+        project.putOnResume(proj);
     }
-/* Education section of the Resume */
+};
+/* Create the Education HTML elements for the education section section of the Resume */
 
 education.putOnresume = function(index) {
     $("#education").append(HTMLschoolStart);
@@ -343,34 +395,32 @@ education.putOnresume = function(index) {
     $(".education-entry:last").append(HTMLschoolDates.replace("%data%", education.schools[index].dates));
     $(".education-entry:last").append(HTMLschoolLocation.replace("%data%", education.schools[index].location));
     $(".education-entry:last").append(HTMLschoolMajor.replace("%data%", education.schools[index].major));
-}
+};
 
 education.putOnline = function(index) {
     $(".education-entry:last").append(HTMLonlineClasses);
     var title = HTMLonlineTitle.replace("%data%", education.online[index].class.title) + HTMLonlineSchool.replace("%data%", education.online[index].school.name);
     $(".education-entry:last").append(title.replace("#", education.online[index].class.url));
     $(".education-entry:last").append(HTMLonlineDates.replace("%data%", education.online[index].dates + " - " + education.online[index].minor[0]));
-    var url = HTMLonlineURL.replace("%data%", education.online[index].school.url)
+    var url = HTMLonlineURL.replace("%data%", education.online[index].school.url);
     $(".education-entry:last").append(url.replace("#", education.online[index].school.url));
-}
+};
 
+// function to display the education HTML elements
 education.display = function() {
     for (var educ in education.schools.reverse()) {
         education.putOnresume(educ);
     }
     for (var online in education.online.reverse()) {
-        education.putOnline(online)
+        education.putOnline(online);
     }
-}
+};
 
-/* this function is used to swap class  for  the follwing div id=
-
+/* this function is used to swap class  for  the follwing <div id=>
      workExperience
      projects
      education
-
      jQuery removeClass and addClass are used
-
 */
 function swapClass(oldc, newc) {
 
@@ -384,62 +434,65 @@ function swapClass(oldc, newc) {
 
 
 
-/*  STRAT TO DISPLAY the RESUME */
+/*  START  TO DISPLAY the RESUME */
 
 bio.display(); // display the bio section
 work.display(); // display the work section
 project.display(); // display the project section
 education.display(); // display the education section */
-displayMap();  // Display teh map section
+displayMap(); // Display teh map section
 displayNavigation(); // display the navigation section
 
 
-var $workExperienceId, $projectsId, $educationId ;
-var $skill_ul , $header ;
+var $workExperienceId, $projectsId, $educationId, $mapDivId,
+    $skill_ul, $header;
 
 $(document).ready(function() {
 
+    $header = $('#header');
     $workExperienceId = $('#workExperience');
-    $educationId    = $('#education');
-    $projectsId     = $('#projects')
-    $skill_ul       = $('#skills');
-    $header         = $('#header');
-
-
+    $educationId = $('#education');
+    $projectsId = $('#projects');
+    $mapDivId = $('#mapDiv');
+    $skill_ul = $('#skills');
     //  Change Header backgroud color when the document is READY
     $header.css("background-color", "rgb(116,130,101)");
     if ($(window).width() >= 600) {
         $skill_ul.addClass("flex-box-col");
     }
     if ($(window).width() >= 1200) {
-        swapClass("col-12", "colg-4");
+        if (All) swapClass("col-12", "colg-4");
+        else swapClass("colg-4", "col-12");
     } else {
         swapClass("colg-4", "col-12");
     }
 });
 
 
-// change display orientation when window size > 600 px  ( row -> column) and remove the open class just in case
+// change display orientation  of the nav_list
+// when window size > 600 px  ( row -> column) and remove the open class just in case
+
 $(window).resize(function() {
+    resize();
+});
+
+function resize() {
 
     var nav_li = $(".nav__list").children('li');
-
     if ($(window).width() >= 600) {
         $skill_ul.addClass("flex-box-col");
         $(".nav").removeClass("open");
         $(".nav__item").removeClass("open");
-
     } else {
         $skill_ul.removeClass("flex-box-col");
     }
-
     if ($(window).width() >= 1200) {
-        swapClass("col-12", "colg-4");
+        if (All) swapClass("col-12", "colg-4");
+        else swapClass("colg-4", "col-12");
     } else {
         swapClass("colg-4", "col-12");
     }
-
-});
+}
 
 
 $("#menu").click(function() {
@@ -447,7 +500,3 @@ $("#menu").click(function() {
     $(".nav__list").toggleClass("open");
     $(".nav__item").toggleClass("open");
 });
-
-
-
-

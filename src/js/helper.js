@@ -102,7 +102,6 @@ $(document).click(function(loc) {
 });
 
 /*
-    This is the fun part.
     Here's where we generate the custom Google Map for the website.
     See the documentation below for more details.
     https://developers.google.com/maps/documentation/javascript/reference
@@ -110,22 +109,49 @@ $(document).click(function(loc) {
 var map; // declares a global map variable
 
 /*
-Start here! initializeMap() is called when page is loaded.
+    InitializeMap() is called when page is loaded.
 */
 function initializeMap() {
     var locations;
     var mapOptions = {
         disableDefaultUI: true,
         zoomControl: true,
+        minZoom: 2,
+        maxZoom: 20,
+        disableDefaultUI: true,
         streetViewControl: true
     };
 
+    mapStyle = [{
+                "featureType": "road.local",
+                "elementType": "labels",
+                "stylers": [{
+                    "hue": "#00a1ff"
+                }, {
+                    "gamma": 0.8
+                }]
+                }, {
+                "featureType": "road.highway",
+                "stylers": [{
+                    "lightness": 12
+                }, {
+                    "gamma": 1.31
+                }, {
+                    "hue": "#ffa200"
+                }]
+                }, {
+                "featureType": "landscape.natural"
+                }];
     /*
     For the map to be displayed, the googleMap var must be
     appended to #mapDiv in resumeBuilder.js.
     */
     map = new google.maps.Map(document.querySelector('#map'), mapOptions);
-
+    var styledMap = new google.maps.StyledMapType(mapStyle, {
+         name: "Styled Map"
+    });
+    map.mapTypes.set('map_style', styledMap);
+    map.setMapTypeId('map_style');
 
     /*
     locationFinder() returns an array of every location string from the JSONs
@@ -186,7 +212,9 @@ function initializeMap() {
             var trimname = name.split(",")[0].trim();
             var bounds = window.mapBounds; // current boundaries of the map window
             // marker is an object with additional data about the pin for a single location
+
             var mymarker = setMarker(trimname);
+
             var marker = new google.maps.Marker({
                 map: map,
                 position: placeData.geometry.location,
@@ -207,10 +235,7 @@ function initializeMap() {
 
             // hmmmm, I wonder what this is about...
             google.maps.event.addListener(marker, 'click', function() {
-                // your code goes here!
                 infoWindow.open(map, marker);
-
-
             });
             // this is where the pin actually gets added to the map.
             // bounds.extend() takes in a map location object

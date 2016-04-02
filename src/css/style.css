@@ -20,7 +20,7 @@ div#main {
 }
 
 h1 {
-  font-size: 35px;
+  font-size: 32px;
   color: #F5A623;
   line-height: 48px;
   display: inline;
@@ -241,9 +241,15 @@ span {
 }
 
 @media only screen and (max-width:950px) {
+
   .biopic {
     width: 175px;
   };
+
+  h1 {
+      font-size: 28px;
+  }
+
 }
 
 @media only screen and (max-width: 599px) {
@@ -263,6 +269,7 @@ span {
     top: 2vw;
     font-size: 3.2vw;
   };
+
 }
 
 @media only screen and (min-width: 600px) {
