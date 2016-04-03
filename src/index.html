@@ -3,10 +3,6 @@
 <!--
     This is an HTML document. It contains information about how elements in the website
     are arranged. In other words, it describes the layout of a website.
-
-    I can't wait to see the resumes you put together!
-
-    Cameron Pittman, Udacity Course Developer
     -->
 <!--
     The <head> of a website generally links to important resources the page will
@@ -22,9 +18,8 @@
   <!-- Tells the browser what the title of this page should be. -->
   <title>Resume</title>
   <link href="http://fonts.googleapis.com/css?family=Roboto:100,200,300" rel="stylesheet" style="text/css">
-  <link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+  <!--link href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'-->
   <!-- Load the page styles. -->
-
   <link href="css/style.css" rel="stylesheet">
   <link href="css/grid.css" rel="stylesheet">
   <link href="css/nav.css" rel="stylesheet">
@@ -48,7 +43,7 @@
       Uncomment the <script> tag below when you're ready to add an interactive
       Google Map to your resume!
       -->
-  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places"></script>
+  <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 </head>
 <!-- body unresolved -->
@@ -65,8 +60,8 @@
     <ul class="nav__list">
     </ul>
   </nav>
+
   <div id="main">
-    <!-- You'll be deleting this line in the course -->
     <!--
         Everything from here to the <script> tag below is the skeleton of your
         website. Your code will add information to each of the sections of the
@@ -91,6 +86,7 @@
           <h2>Education</h2>
         </div>
       </div>
+
       <div class="row">
           <div id="mapDiv" class="col-12">
             <h2>Where I've Lived and Worked</h2>
@@ -101,6 +97,7 @@
             </ul>
           </div>
       </div>
+
     </div>
   </div>
     <!--

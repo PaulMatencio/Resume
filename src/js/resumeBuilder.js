@@ -1,13 +1,14 @@
 
 // definition of bio variable which is used to build the bio section's HTML elements
 var bio = {
-    "name": "Alexandre Matencio",
-    "role": "Student at ECV",
+    "name": "Paul Matencio",
+    "role": "IT architect at the EPO",
     "contacts": {
-        "email": "alexandreMatencio@gmail.com",
-        "mobile": "+33xxxxxxxxx",
-        "twitter": "@AiMatencio",
-        "github": "Alexandre Matencio V",
+        "email": "paulo.matencio@gmail.com",
+        //"mobile": "+31xxxxxxxxx",
+        "twitter": "https://twitter.com/PaulMatencio",
+        "google": "https://plus.google.com/104462469388390011439",
+        "github": "https://github.com/PaulMatencio",
         "location": "The Hague, The Netherlands"
     },
     "skills": ["Focus on result", "Taking responsability", "Creativity", "Sens of humor"],
@@ -283,18 +284,38 @@ bio.display = function() {
     $("#header").prepend(HTMLheaderRole.replace("%data%", bio.role));
     $("#header").prepend(HTMLheaderName.replace("%data%", bio.name));
     $("#header").append(HTMLbioPic.replace("%data%", bio.biopic));
-    var mobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
-    $("#topContacts").append(mobile);
-    $("#footerContacts").append(mobile);
+
+    if (bio.contacts.mobile) {
+      var mobile = HTMLmobile.replace("%data%", bio.contacts.mobile);
+      $("#topContacts").append(mobile);
+      $("#footerContacts").append(mobile);
+    }
+
     var email = HTMLemail.replace("%data%", bio.contacts.email);
     $("#topContacts").append(email);
     $("#footerContacts").append(email);
-    var twitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
-    $("#topContacts").append(twitter);
-    $("#footerContacts").append(twitter);
-    var github = HTMLgithub.replace("%data%", bio.contacts.github);
-    $("#topContacts").append(github);
-    $("#footerContacts").append(github);
+
+    if (bio.contacts.twitter) {
+      // var twitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
+      var twitter = HTMLtwitter.replace("#", bio.contacts.twitter);
+      $("#topContacts").append(twitter);
+      $("#footerContacts").append(twitter);
+    };
+
+    if (bio.contacts.google) {
+      // var google = HTMLgoogle.replace("%data%", bio.contacts.google);
+      var google = HTMLgoogle.replace("#",bio.contacts.google);
+      $("#topContacts").append(google);
+      $("#footerContacts").append(google);
+    };
+
+    if (bio.contacts.github) {
+      //var github = HTMLgithub.replace("%data%", bio.contacts.github);
+      var github = HTMLgithub.replace("#", bio.contacts.github);
+      $("#topContacts").append(github);
+      $("#footerContacts").append(github);
+    };
+
     $("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
     bio.mySkills();
     bio.myWelcome();
@@ -432,8 +453,6 @@ function swapClass(oldc, newc) {
     $('#education').addClass(newc);
 }
 
-
-
 /*  START  TO DISPLAY the RESUME */
 
 bio.display(); // display the bio section
@@ -457,7 +476,7 @@ $(document).ready(function() {
     $skill_ul = $('#skills');
     //  Change Header backgroud color when the document is READY
     $header.css("background-color", "rgb(116,130,101)");
-    if ($(window).width() >= 600) {
+    if ($(window).width() >= 690) {
         $skill_ul.addClass("flex-box-col");
     }
     if ($(window).width() >= 1200) {
@@ -479,7 +498,8 @@ $(window).resize(function() {
 function resize() {
 
     var nav_li = $(".nav__list").children('li');
-    if ($(window).width() >= 600) {
+
+    if ($(window).width() >= 690) {
         $skill_ul.addClass("flex-box-col");
         $(".nav").removeClass("open");
         $(".nav__item").removeClass("open");

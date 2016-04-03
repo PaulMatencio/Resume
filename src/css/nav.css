@@ -9,10 +9,13 @@
     margin-left: auto;
     margin-right: auto;
     position: absolute;
+    /*
     -webkit-transform: translate(-1000px, 0);
     -moz-transform: translate(-1000px, 0);
     -ms-transform: translate(-1000px, 0);
     transform: translate(-1000px, 0);
+    */
+    transform: translate(0, -1000px);
     -webkit-transition: transform 0.3s ease;
     -moz-transition: transform 0.3s ease;
     -ms-transition: transform 0.3s ease;
@@ -25,11 +28,11 @@
   */
 
 .nav.open {
-    position: absolute;
+    position: fixed;
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
-    top: 1em;
-    width: 6em;
+    top: 1.2em;
+    width: 8em;
     left: 0.1em;
     border-radius: 5%;
     z-index: 10;
@@ -83,23 +86,34 @@
     transform: scale(1.1);
 }
 
+#header {
+  margin-top: 0;
+}
+
 #menu {
     float: left;
-    position: absolute;
+    position: fixed;
     margin: 0;
+    z-index: 12;
 }
 
 a#menu svg {
-    width: 120px;
+    width: 20px;
+    height: 20px;
     fill: #000;
 }
 
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 691px) {
+
+    #header {
+     margin-top: 30px;
+    }
+
     #menu {
         display: none;
     }
     .nav {
-        position: relative;
+        position: fixed;
         width: 100%;
         -webkit-transform: translate(0, 0);
         -moz-transform: translate(0, 0);
