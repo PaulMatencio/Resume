@@ -1,8 +1,9 @@
 
 // definition of bio variable which is used to build the bio section's HTML elements
+
 var bio = {
     "name": "Paul Matencio",
-    "role": "IT architect at the EPO",
+    "role": "IT architect at the EPO(NL)",
     "contacts": {
         "email": "paulo.matencio@gmail.com",
         //"mobile": "+31xxxxxxxxx",
@@ -113,7 +114,7 @@ var project = {
         {
             "title": "Preparing tea",
             "dates": "1900-1920",
-            "description": "Preparing tea properly is easy but you must follow a few basic guidelines. The best tea in the world can taste horrible if prepared incorrectly, and conversely a very inexpensive tea can be very satisfying if made well. There are seven factors that effect the quality of brewed tea: The quality of the tea; The quality of the water; Correct measurement; Correct steeping temperature; Correct steeping time; Allowing the tea leaf to expand fully; Separating the leaf from the liquid at the end of the steeping process",
+            "description": "Preparing tea properly is easy  but you must <strong> follow a few basic guidelines</strong>. The best tea in the world can taste horrible if prepared incorrectly, and conversely a very inexpensive tea can be very satisfying if made well. There are seven factors that effect the quality of brewed tea: The quality of the tea; The quality of the water; Correct measurement; Correct steeping temperature; Correct steeping time; Allowing the tea leaf to expand fully; Separating the leaf from the liquid at the end of the steeping process",
             "url": "http://www.asian-recipe.com/china/preparing-chinese-tea.html",
             "location": "Hanoï, Vietnam",
             "images": ["images/Tea-preparation-1.jpg", "images/Tea-preparation-2.jpg", "images/Tea-preparation-3.jpg"]
@@ -265,7 +266,6 @@ function inName(myname) {
     return name1[1] + " " + name1[0];
 }
 
-
 /* Build the Bio elements */
 
 bio.myWelcome = function() {
@@ -291,9 +291,14 @@ bio.display = function() {
       $("#footerContacts").append(mobile);
     }
 
-    var email = HTMLemail.replace("%data%", bio.contacts.email);
-    $("#topContacts").append(email);
-    $("#footerContacts").append(email);
+    if (bio.contacts.email) {
+      var email = HTMLemail.replace("%data%", bio.contacts.email);
+      $("#topContacts").append(email);
+      $("#footerContacts").append(email);
+    }
+    if (bio.contacts.location) {
+    //  $("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
+    }
 
     if (bio.contacts.twitter) {
       // var twitter = HTMLtwitter.replace("%data%", bio.contacts.twitter);
@@ -316,7 +321,6 @@ bio.display = function() {
       $("#footerContacts").append(github);
     };
 
-    $("#topContacts").append(HTMLlocation.replace("%data%", bio.contacts.location));
     bio.mySkills();
     bio.myWelcome();
 };
@@ -463,7 +467,7 @@ displayMap(); // Display teh map section
 displayNavigation(); // display the navigation section
 
 
-var $workExperienceId, $projectsId, $educationId, $mapDivId,
+var $workExperienceId, $projectsId, $educationId, $mapDivId, $summaryId,
     $skill_ul, $header;
 
 $(document).ready(function() {
@@ -474,6 +478,7 @@ $(document).ready(function() {
     $projectsId = $('#projects');
     $mapDivId = $('#mapDiv');
     $skill_ul = $('#skills');
+
     //  Change Header backgroud color when the document is READY
     $header.css("background-color", "rgb(116,130,101)");
     if ($(window).width() >= 690) {
