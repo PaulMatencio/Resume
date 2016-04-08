@@ -489,10 +489,10 @@ $(document).ready(function() {
     $header = $('#header');
     $workExperienceId = $('#workExperience');
     navigation.box.push($workExperienceId);
-    $educationId = $('#education');
-    navigation.box.push($educationId);
     $projectsId = $('#projects');
     navigation.box.push($projectsId);
+    $educationId = $('#education');
+    navigation.box.push($educationId);
     $mapDivId = $('#mapDiv');
     navigation.box.push($mapDivId);
     $skill_ul = $('#skills');
@@ -549,4 +549,3 @@ function toggleMenu(zindex) {
 $("#menu").click(function() {
     toggleMenu(101);
 });
-
