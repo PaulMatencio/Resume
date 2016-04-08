@@ -1,8 +1,7 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
-    minifycss = require('gulp-minify-css'),
+    minifycss = require('gulp-clean-css'),
     imagemin = require('gulp-imagemin'),
-    plumber = require('gulp-plumber'),
     minifyinline = require('gulp-minify-inline'),
     critical = require('critical'),
     minifyhtml = require('gulp-minify-html');

@@ -179,6 +179,7 @@ var mapmaker = {
 // BUILD THE NAVIGATION LIST
 var navigation = {
     "title": ["Work Experience", "Projects", "Education", "Map", "All"], // title=  for each menu
+     "box": [], // fill
     "id": ["workId", "projId", "educId", "mapId", "allId"] // id= for ecah menu
 };
 
@@ -200,51 +201,64 @@ function displayNavigation() {
         $mapId = $('#mapId'),
         $allId = $('#allId');
 
+    function clickOn(cid) {
+        navigation.id.forEach(function(id,index){
+            var box = navigation.box[index]
+            if (cid.attr("id") === id) {
+                $(box).show();
+            } else $(box).hide();
+        });
+    }
+
     // Listen on Click event of the menu list entries
+
     // work experience  is clicked
     $workId.click(function() {
-        $workExperienceId.show();
-        $projectsId.hide();
-        $educationId.hide();
-        $mapDivId.hide();
+        clickOn($workId);
+        if ($(window).width() < 690) {
+            toggleMenu(-1);
+        }
         All = false; // used to swap class when resizing
         resize();
     });
+
     // project is clicked
     $projId.click(function() {
-        $workExperienceId.hide();
-        $projectsId.show();
-        $educationId.hide();
-        $mapDivId.hide();
+        clickOn($projId);
+        if ($(window).width() < 690) {
+            toggleMenu(-1);
+        }
         All = false; // used to swap class when resizing
         resize();
     });
     // education   is clicked
     $educId.click(function() {
-        $workExperienceId.hide();
-        $projectsId.hide();
-        $educationId.show();
-        $mapDivId.hide();
+        clickOn($educId);
+        if ($(window).width() < 690) {
+            toggleMenu(-1);
+        }
         All = false; // used to swap class when resizing
         resize();
     });
 
     // map is clicked
     $mapId.click(function() {
-        $workExperienceId.hide();
-        $projectsId.hide();
-        $educationId.hide();
-        $mapDivId.show();
+        clickOn($mapId)
+        if ($(window).width() < 690) {
+            toggleMenu(-1);
+        }
         All = false; // used to swap class when resizing
         resize();
 
     });
     // all is clicked
     $allId.click(function() {
-        $workExperienceId.show();
-        $projectsId.show();
-        $educationId.show();
-        $mapDivId.show();
+        navigation.box.forEach(function(id){
+            id.show();
+        });
+        if ($(window).width() < 690) {
+            toggleMenu(-1);
+        }
         All = true; // used to swap class when resizing
         resize();
     });
@@ -474,9 +488,13 @@ $(document).ready(function() {
 
     $header = $('#header');
     $workExperienceId = $('#workExperience');
+    navigation.box.push($workExperienceId);
     $educationId = $('#education');
+    navigation.box.push($educationId);
     $projectsId = $('#projects');
+    navigation.box.push($projectsId);
     $mapDivId = $('#mapDiv');
+    navigation.box.push($mapDivId);
     $skill_ul = $('#skills');
 
     //  Change Header backgroud color when the document is READY
@@ -506,6 +524,7 @@ function resize() {
 
     if ($(window).width() >= 690) {
         $skill_ul.addClass("flex-box-col");
+        $(".nav").css("zIndex", 0);
         $(".nav").removeClass("open");
         $(".nav__item").removeClass("open");
     } else {
@@ -519,9 +538,15 @@ function resize() {
     }
 }
 
-
-$("#menu").click(function() {
-    $(".nav").toggleClass("open");
+function toggleMenu(zindex) {
+    var $nav = $(".nav");
+    $nav.css("zIndex", zindex);
+    $nav.toggleClass("open");
     $(".nav__list").toggleClass("open");
     $(".nav__item").toggleClass("open");
+}
+
+$("#menu").click(function() {
+    toggleMenu(101);
 });
+
